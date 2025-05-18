@@ -2,7 +2,7 @@
 const Dashboard = () => {
   return (
     <div>
-      Dashboard Page eee
+      Dashboard Page
     </div>
   )
 }

@@ -1,4 +1,5 @@
  export enum Routes{
 DASHBOARD='dashboard',
-POST='post',
+AllUSERS='all-users',
+TRIPS='trips',
 }
