@@ -1,24 +1,35 @@
-import { Outlet } from "react-router"
+import { Outlet } from "react-router";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
-import { MobileSidebar, NavItems } from "~/Modules/dashboard-layout";
+import NavItems from "~/components/NavItems";
+import MobileSidebar from "~/components/MobileSidebar";
+
+import { useLargeScreen } from "~/hooks/useLargeScreen";
 
 const AdminLayout = () => {
-  return (
-    <div className="admin-layout " >
-      <MobileSidebar/>
-      <aside
-      className="w-full max-w-[270px] hidden lg:block">
-              <SidebarComponent id="default-sidebar" enableGestures={true} width={"270px"} className="">
-                   <NavItems/>
-                </SidebarComponent>
-      </aside>
 
-      <aside className="children ">
-        <Outlet/>
-      </aside>
-
-    </div>
-  )
+ const isLargeScreen = useLargeScreen()
+ if (isLargeScreen === null) {
+  return <div className="p-4 flex justify-center items-center mt-[25%] text-3xl font-bold  ">Loading interface...</div>;
 }
 
-export default AdminLayout
+if (isLargeScreen === null) return null;
+  return (
+    <div className="admin-layout">
+      <MobileSidebar/>
+
+      {isLargeScreen && (
+        <aside className=" w-full max-w-[270px] hidden lg:block" >
+        <SidebarComponent width={270} enableGestures={true}>
+          <NavItems />
+        </SidebarComponent>
+      </aside >
+      )}
+
+      <aside className="w-full lg:w-[calc(100%-270px)]">
+        <Outlet />
+      </aside>
+    </div>
+  );
+};
+
+export default AdminLayout;

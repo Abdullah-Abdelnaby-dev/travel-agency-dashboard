@@ -1,11 +1,11 @@
 import React from 'react'
 
-const AiTrips = () => {
+const AITrips = () => {
   return (
     <div>
-      Ai Trips
+        AI Trips Page
     </div>
   )
 }
 
-export default AiTrips
+export default AITrips
