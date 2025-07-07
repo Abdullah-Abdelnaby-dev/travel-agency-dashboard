@@ -1,10 +1,27 @@
-import { Outlet } from "react-router";
+import { Outlet, redirect } from "react-router";
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import NavItems from "~/components/NavItems";
 import MobileSidebar from "~/components/MobileSidebar";
 
 import { useLargeScreen } from "~/hooks/useLargeScreen";
+import { account } from "~/appwrite/client";
+import { getExistingUser, storeUserData } from "~/appwrite/auth";
+export async function clientLoader(){
+  try {
+    const user = await  account.get();
 
+    if(!user.$id) return redirect('/sign-in');
+
+    const existingUser = await getExistingUser(user.$id);
+    if(existingUser?.status === 'user'){
+      return redirect('/dashboard');
+    }
+    return existingUser?.$id ? existingUser : await storeUserData()
+  } catch (e) {
+    console.log('Error loading client:', e);
+    return redirect('/sign-in');
+  }
+}
 const AdminLayout = () => {
 
  const isLargeScreen = useLargeScreen()

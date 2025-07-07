@@ -1,9 +1,25 @@
+
+
+// import { getUser } from "~/appwrite/auth";
+import { getUser } from "~/appwrite/auth";
 import { Header, StatsCard, TripCard } from "~/components";
 import { dashboardStats, user, allTrips } from "~/constants";
+import type { Route } from "./+types/dashboard";
+import { useLoaderData } from "react-router";
 
-const Dashboard = () => {
+export const clientLoader = async () => await getUser()  
+
+
+
+const Dashboard = ({loaderData}:Route.ComponentProps) => {
+  
+  const user = loaderData as User | null;
+  
+  // const user = useLoaderData <User | null>();
+  console.log('loaderData called',user);
   const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } =
-    dashboardStats;
+  dashboardStats;
+
   return (
     <main className="dashboard wrapper">
       <Header

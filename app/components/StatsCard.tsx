@@ -1,4 +1,5 @@
-import { calculateTrendPercentage } from "~/lib/utils"
+
+import {calculateTrendPercentage}from "~/lib/utils"
 
 const StatsCard = ({ headerTitle, total, currentMonthCount, lastMonthCount }: StatsCard) => {
 

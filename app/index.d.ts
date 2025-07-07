@@ -16,8 +16,10 @@ declare type User = BaseUser;
 declare interface Country {
   name: string;
   coordinates: [number, number];
-  value: string;
+  flag: string;
   openStreetMap?: string;
+  value:string
+  ok:boolean
 }
 
 declare interface DropdownItem {
