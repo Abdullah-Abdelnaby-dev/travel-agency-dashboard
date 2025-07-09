@@ -4,5 +4,6 @@ DASHBOARD='dashboard',
 AllUSERS='all-users',
 TRIPS='trips',
 CREATE_TRIP='trips/create',
-API_CREATE_TRIP='api/create-trip'
+API_CREATE_TRIP='api/create-trip',
+TRIP_ID='trips/:tripId',
 }

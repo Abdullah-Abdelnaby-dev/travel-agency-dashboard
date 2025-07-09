@@ -34,7 +34,7 @@ export const loader = async () => {
 const createTrip = ({ loaderData }: Route.ComponentProps) => {
   const countries = loaderData as Country[];
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<TripFormData>({
     country: countries[0]?.name || "",
@@ -53,7 +53,9 @@ const createTrip = ({ loaderData }: Route.ComponentProps) => {
       [key]: value,
     });
   };
-
+  console.log("formData", formData);
+  console.log("formData", formData.travelStyle);
+  console.log("formData", formData.groupType);
   const countriesData = countries.map((country) => ({
     text: country.name,
     value: country.name,
@@ -69,9 +71,8 @@ const createTrip = ({ loaderData }: Route.ComponentProps) => {
           ?.coordinates || [],
     },
   ];
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsLoading(true);
 
     if (
@@ -82,47 +83,48 @@ const createTrip = ({ loaderData }: Route.ComponentProps) => {
       !formData.groupType ||
       !formData.duration
     ) {
-      setIsError('Please provide values for all fields');
+      setIsError("Please provide values for all fields");
+      setIsLoading(false);
+      return null;
+    }
+    if (formData.duration < 1 || formData.duration > 10) {
+      setIsError("Duration must be between 1 and 10 days");
       setIsLoading(false);
       return;
     }
-    if(formData.duration < 1 || formData.duration > 10){
-       setIsError('Duration must be between 1 and 10 days');
-      setIsLoading(false);
-      return;
-    }
-    const user = await account.get()
+    const user = await account.get();
 
-    if(!user.$id){
-          setIsError('User not authenticated');
+    if (!user.$id) {
+      setIsError("User not authenticated");
       setIsLoading(false);
       return;
     }
+    if(formData.travelStyle === undefined){
+      setIsError("Please Select TravelStyle");
+    }
 
-    try{
-      const response = await fetch('/api/create-trip',{
-        method: 'POST',
-        headers: {'Content-type':'application/json'},
+    try {
+      const response = await fetch("/api/create-trip", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify({
           country: formData.country,
-          numberOfDays:formData.duration,
-          travelStyle:formData.travelStyle,
-          interests:formData.interest,
-          budget:formData.budget,
-          groupType:formData.groupType,
-          userId: user.$id
-          
-        })
+          numberOfDays: formData.duration,
+          travelStyle: formData.travelStyle,
+          interests: formData.interest,
+          budget: formData.budget,
+          groupType: formData.groupType,
+          userId: user.$id,
+        }),
+      });
+      const result: CreateTripResponse = await response.json();
 
-      })
-      const result :CreateTripResponse = await response.json()
-
-      if(result?.id) navigate(`/trips/${result.id}`)
-        else console.error('Failed to generate a trip')
-    }catch(e){
-      console.error('Error generatting trip',e)
-    }finally{
-      setIsLoading(false)
+      if (result?.id) navigate(`/trips/${result.id}`);
+      else console.error("Failed to generate a trip");
+    } catch (e) {
+      console.error("Error generatting trip", e);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -260,9 +262,9 @@ const createTrip = ({ loaderData }: Route.ComponentProps) => {
               <img
                 src={`/assets/icons/${
                   isLoading ? "loader.svg" : "magic-star.svg"
-                }` }
+                }`}
                 alt=""
-                className={cn('size-5' , {'animate-spin': isLoading} )}
+                className={cn("size-5", { "animate-spin": isLoading })}
               />
               <span className="p-16-semibold text-white">
                 {isLoading ? "Generating..." : "Generate Trip"}

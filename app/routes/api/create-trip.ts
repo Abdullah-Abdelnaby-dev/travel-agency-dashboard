@@ -13,10 +13,10 @@ const unsplashApiKey = process.env.UNSPLASH_ACCESS_KEY!;
   const {
     country,
     numberOfDays,
-    travelStyles,
+    travelStyle,
     interests,
     budget,
-    groupTypes,
+    groupType,
     userId,
   } = await request.json();
   try {
@@ -24,8 +24,8 @@ const unsplashApiKey = process.env.UNSPLASH_ACCESS_KEY!;
   const prompt = `Generate a ${numberOfDays}-day travel itinerary for ${country} based on the following user information:
     Budget: '${budget}'
     Interests: '${interests}'
-    TravelStyle: '${travelStyles}'
-    GroupType: '${groupTypes}'
+    TravelStyle: '${travelStyle}'
+    GroupType: '${groupType}'
     Return the itinerary and lowest estimated price in a clean, non-markdown JSON format with the following structure:
     {
     "name": "A descriptive title for the trip",
@@ -33,10 +33,10 @@ const unsplashApiKey = process.env.UNSPLASH_ACCESS_KEY!;
     "estimatedPrice": "Lowest average price for the trip in USD, e.g.$price",
     "duration": ${numberOfDays},
     "budget": "${budget}",
-    "travelStyle": "${travelStyles}",
+    "travelStyle": "${travelStyle}",
     "country": "${country}",
     "interests": ${interests},
-    "groupType": "${groupTypes}",
+    "groupType": "${groupType}",
     "bestTimeToVisit": [
       '🌸 Season (from month to month): reason to visit',
       '☀️ Season (from month to month): reason to visit',
@@ -73,7 +73,7 @@ const unsplashApiKey = process.env.UNSPLASH_ACCESS_KEY!;
   const trip = parseMarkdownToJson(textResult.response.text());
 
   const imageResponse = await fetch(
-    `https://api.unsplash.com/search/photos?query=${country} ${interests} ${travelStyles}&client_id=${unsplashApiKey}`
+    `https://api.unsplash.com/search/photos?query=${country} ${interests} ${travelStyle}&client_id=${unsplashApiKey}`
   );
   const imageUrls = (await imageResponse.json()).results
     .slice(0, 3)

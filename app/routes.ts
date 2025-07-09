@@ -9,6 +9,7 @@ export default [
     route(Routes.AllUSERS, 'routes/admin/all-users.tsx'),
     route(Routes.TRIPS, 'routes/admin/trips.tsx'),
     route(Routes.CREATE_TRIP, 'routes/admin/createTrip.tsx'),
+    route(Routes.TRIP_ID, 'routes/admin/tripDetails.tsx'),
       
   ]),
 ] satisfies RouteConfig;
