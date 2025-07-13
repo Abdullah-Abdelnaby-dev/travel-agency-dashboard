@@ -7,7 +7,7 @@ import { cn } from "~/lib/utils";
 const NavItems = ({handelClick}:{handelClick?:()=>void}) => {
 
   const user = useLoaderData()
-  console.log('user', user)
+
   const navigate= useNavigate()
 
   const handleLogout = async () => {

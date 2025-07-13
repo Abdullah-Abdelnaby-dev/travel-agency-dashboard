@@ -1,8 +1,8 @@
 import type { LoaderFunctionArgs } from "react-router";
-import { getTripById } from "~/appwrite/trips";
+import { getAllTrips, getTripById } from "~/appwrite/trips";
 import { cn, getFirstWord, parseTripData } from "~/lib/utils";
 import type { Route } from "./+types/tripDetails";
-import { Header } from "~/components";
+import { Header, TripCard } from "~/components";
 import InfoPill from "~/components/infoPill";
 import {
   ChipDirective,
@@ -14,14 +14,24 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { tripId } = params;
 
   if (!tripId) throw new Error("Trip ID is required");
+  const [trip, trips] = await Promise.all([
+    getTripById(tripId),
+    getAllTrips(4, 0),
+  ]);
 
-  return await getTripById(tripId);
+  return {
+    trip,
+    allTrips: trips.allTrips.map(({ $id, tripDetail, imageUrls }) => ({
+      id: $id,
+      ...parseTripData(tripDetail),
+      imageUrls: imageUrls ?? [],
+    })),
+  };
 };
-
 const tripDetails = ({ loaderData }: Route.ComponentProps) => {
-  const imageUrls = loaderData?.imageUrls || [];
+  const imageUrls = loaderData?.trip?.imageUrls || [];
 
-  const tripData = parseTripData(loaderData?.tripDetail);
+  const tripData = parseTripData(loaderData?.trip?.tripDetail);
   const {
     name,
     duration,
@@ -37,7 +47,8 @@ const tripDetails = ({ loaderData }: Route.ComponentProps) => {
     country,
   } = tripData || {};
   const allTrips = loaderData?.allTrips as Trip[] | [];
-  console.log("allTrips", allTrips );
+ 
+  
 
   const pillItems = [
     { text: travelStyle, bg: "!bg-pink-50 !text-pink-500" },
@@ -51,8 +62,7 @@ const tripDetails = ({ loaderData }: Route.ComponentProps) => {
     { title: "Weather Info:", items: weatherInfo },
   ];
 
-  console.log("name", name);
-  console.log("imageUrls", imageUrls);
+
 
   return (
     <main className="travel-detail wrapper">
@@ -189,11 +199,33 @@ const tripDetails = ({ loaderData }: Route.ComponentProps) => {
             </div>
           </section>
         ))}
-
-        <section className="flex flex-col gap-6">
-          <h2 className="p-24-semibold text-dark-100">Popular Trips</h2>
-        </section>
       </section>
+      <section className="flex flex-col gap-6">
+        <h2 className="p-24-semibold text-dark-100">Popular Trips</h2>
+        <div className="trip-grid">
+          {allTrips.map(
+            ({
+              id,
+              name,
+              imageUrls,
+              itinerary,
+              interests,
+              travelStyle,
+              estimatedPrice,
+            }) => (
+              <TripCard
+                id={id}
+                key={id}
+                name={name}
+                location={itinerary?.[0].location ?? ""}
+                imageUrls={imageUrls[0]}
+                tags={[interests, travelStyle]}
+                price={estimatedPrice}
+              />
+            )
+          )}
+        </div>
+      </section> 
     </main>
   );
 };

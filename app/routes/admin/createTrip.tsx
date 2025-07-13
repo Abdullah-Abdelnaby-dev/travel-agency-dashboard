@@ -53,9 +53,7 @@ const createTrip = ({ loaderData }: Route.ComponentProps) => {
       [key]: value,
     });
   };
-  console.log("formData", formData);
-  console.log("formData", formData.travelStyle);
-  console.log("formData", formData.groupType);
+
   const countriesData = countries.map((country) => ({
     text: country.name,
     value: country.name,

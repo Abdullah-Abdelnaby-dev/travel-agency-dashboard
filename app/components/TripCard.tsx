@@ -1,5 +1,4 @@
-
-import { Link, useLocation} from "react-router";
+import { Link, useLocation } from "react-router";
 import {
   ChipDirective,
   ChipListComponent,
@@ -20,14 +19,18 @@ const TripCard = ({
     <Link
       to={
         path.pathname === "/" || path.pathname.startsWith("/travel")
-          ? `/travel/${id} `
+          ? `/travel/${id}`
           : `/trips/${id}`
       }
       className="shadow-xl rounded-b-[20px] relative"
     >
-     <div className="w-fit h-60">
-       <img src={imageUrls} alt={name} className="trip-card w-full h-full object-cover" />
-     </div>
+      <div className="w-full h-60 overflow-hidden">
+        <img
+          src={imageUrls}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
       <article className="p-4 ">
         <h2 className="mb-4">{name}</h2>
         <figure className="flex items-center gap-2">
