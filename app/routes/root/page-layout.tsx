@@ -1,11 +1,36 @@
-
+import { useNavigate } from "react-router";
+import { logoutUser } from "~/appwrite/auth";
 
 const PageLayOut = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const navigate = useNavigate();
 
-export default PageLayOut
+  const handleLogout = async () => {
+    await logoutUser();
+    navigate("/sign-in");
+  };
+  return (
+    <main className="flex  flex-col justify-center items-center ">
+      <h1 className="font-bold text-4xl mt-5">Travisto DashBoard</h1>
+    <div className="mt-10 flex  gap-5">
+      <button
+        className="bg-primary-500 p-5 text-white rounded-3xl font-semibold cursor-pointer"
+        onClick={handleLogout}
+       
+      >
+        Log in
+      </button>
+
+      <button
+        className="bg-primary-500 p-5 text-white rounded-3xl font-semibold cursor-pointer"
+        onClick={() => {
+          navigate("/dashboard");
+        }}
+      >
+        To Dash Board
+      </button>
+    </div>
+    </main>
+  );
+};
+
+export default PageLayOut;
