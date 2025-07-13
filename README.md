@@ -9,11 +9,10 @@ A full-stack travel management dashboard built with **React**, **TypeScript**, *
 
 ## 📸 Screenshots
 
-![Dashboard Preview](./assets//images/deafultPage.png)
-![Dashboard Preview](./assets//images/signInPage.png)
-![Dashboard Preview](./assets//images/dashboard.png)
-![Dashboard Preview](./assets//images/triplist.png)
-![Dashboard Preview](./assets//images/createTrip.png)
+![Dashboard Preview](./images/deafultPage.png)
+![Dashboard Preview](./images/readme.png.png)
+
+
 
 
 ## 🔧 Tech Stack
