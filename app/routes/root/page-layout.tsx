@@ -5,7 +5,7 @@ const PageLayOut = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logoutUser();
+    
     navigate("/sign-in");
   };
   return (
