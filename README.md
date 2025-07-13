@@ -7,11 +7,6 @@ A full-stack travel management dashboard built with **React**, **TypeScript**, *
 🔗 [Click here to try it out](https://travel-agency-dashboard-df3m.vercel.app/)  
 *(Replace with your actual link)*
 
-## 📸 Screenshots
-
-![Dashboard Preview](./images/deafultPage.png)
-![Dashboard Preview](./images/readme.png.png)
-
 
 
 
