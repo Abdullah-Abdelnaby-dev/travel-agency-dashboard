@@ -16,8 +16,8 @@ const PageLayOut = () => {
         className="bg-primary-500 p-5 text-white rounded-3xl font-semibold cursor-pointer"
         onClick={handleLogout}
        
-      >
-        Log in
+      > 
+        Sign In
       </button>
 
       <button
