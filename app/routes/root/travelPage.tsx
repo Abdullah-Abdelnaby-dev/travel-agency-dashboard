@@ -22,7 +22,7 @@ const travelPage = () => {
         className="bg-primary-500 p-5 text-white rounded-3xl font-semibold cursor-pointer"
         onClick={() => {
           navigate("/dashboard");
-          console.log(1)
+         
         }}
       >
         To Dash Board

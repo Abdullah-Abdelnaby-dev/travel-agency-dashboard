@@ -1,4 +1,5 @@
 //@ts-nocheck
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import { SidebarComponent } from "@syncfusion/ej2-react-navigations";
 import { Link } from "react-router";
@@ -23,11 +24,7 @@ const MobileSidebar = () => {
           <h1 className="font-bold text-xl">Tourvisto</h1>
         </Link>
         <button onClick={toggleSidebar}>
-          <img
-            src="/public/assets/icons/menu.svg"
-            alt="menu"
-            className="size-8"
-          />
+        <GiHamburgerMenu size={20} />
         </button>
       </header>
       <SidebarComponent

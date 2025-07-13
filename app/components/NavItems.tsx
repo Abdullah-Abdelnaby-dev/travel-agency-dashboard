@@ -1,6 +1,6 @@
-import { Link, NavLink, redirect, useLoaderData, useNavigate } from "react-router";
+import { Link, NavLink, useLoaderData, useNavigate } from "react-router";
 import { logoutUser } from "~/appwrite/auth";
-import { account } from "~/appwrite/client";
+import { SlLogout } from "react-icons/sl";
 import { sidebarItems } from "~/constants";
 import { cn } from "~/lib/utils";
 
@@ -71,7 +71,7 @@ const NavItems = ({handelClick}:{handelClick?:()=>void}) => {
         </article>
 
         <button onClick={handleLogout} className="cursor-pointer">
-          <img src="/public/assets/icons/logout.svg" alt="logout" className="size-7" />
+          <SlLogout size={25} color="red" />
         </button>
       </footer>
     </section>
