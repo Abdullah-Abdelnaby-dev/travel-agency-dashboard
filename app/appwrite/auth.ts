@@ -37,6 +37,7 @@ export const storeUserData = async () => {
         name: user.name,
         imageUrl: profilePicture,
         joinedAt: new Date().toISOString(),
+        status: "admin" 
       }
     );
 
@@ -67,7 +68,7 @@ export const loginWithGoogle = async () => {
     account.createOAuth2Session(
       OAuthProvider.Google,
       `${window.location.origin}/dashboard`,
-      `${window.location.origin}/sign-in`
+      `${window.location.origin}/404`
     );
   } catch (error) {
     console.error("Error during OAuth2 session creation:", error);
